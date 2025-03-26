@@ -69,3 +69,41 @@ class VIPCustomer extends Customer {
   vipCustomer.addPurchase(400);
   console.log('VIP customer created:', vipCustomer);
   console.log('Total spent with bonus:', vipCustomer.getTotalSpent());
+
+// "Task 4 - Finalized reporting system"
+// Task 4: Client Report System
+console.log('\n=== Task 4: Client Report System ===');
+
+// Create additional customers
+const customer2 = new Customer('Mike Brown', 'mike@example.com');
+customer2.addPurchase(150);
+customer2.addPurchase(450); // Total $600
+
+const vipCustomer2 = new VIPCustomer('Emily Davis', 'emily@example.com', 'Platinum');
+vipCustomer2.addPurchase(600);
+vipCustomer2.addPurchase(400); // Total $1100 + 10% = $1210
+
+// Add all customers to an array
+const allCustomers = [customer1, customer2, vipCustomer, vipCustomer2];
+
+// Add some clients to sales rep
+rep1.addClient(customer2);
+rep1.addClient(vipCustomer);
+
+// Calculate total revenue
+const totalRevenue = allCustomers.reduce((total, customer) => 
+  total + customer.getTotalSpent(), 0);
+console.log('Total revenue from all customers:', totalRevenue.toFixed(2));
+
+// Find high-spending customers (> $500)
+const highSpendingCustomers = allCustomers.filter(
+  customer => customer.getTotalSpent() > 500);
+console.log('High-spending customers (> $500):', highSpendingCustomers);
+
+// Create customer summary
+const customerSummary = allCustomers.map(customer => ({
+  name: customer.name,
+  totalSpent: customer.getTotalSpent().toFixed(2),
+  type: customer instanceof VIPCustomer ? 'VIP' : 'Regular'
+}));
+console.log('Customer summary:', customerSummary);
